@@ -59,11 +59,11 @@ test:
 		cd ../.; \
 	done
 
-build:
-	@echo "===> Building all services..."
-	cd $(SOURCE_DIR)/cmd && \
-	for svc in $(SERVICES); do \
-		echo "Building $$svc..."; \
-		cd ./$$svc && go build -o $$svc main.go; \
-		cd ../.; \
-	done
+#build:
+#	@echo "===> Building all services..."
+#	cd $(SOURCE_DIR)/cmd && \
+#	for svc in $(SERVICES); do \
+#		echo "Building $$svc..."; \
+#		cd ./$$svc && go build -o $$svc main.go; \
+#		cd ../.; \
+#	done
