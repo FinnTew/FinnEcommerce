@@ -1,4 +1,13 @@
 go 1.23.2
 
-use ./src
-
+use (
+    src/internal/service/auth
+    src/internal/service/cart
+    src/internal/service/checkout
+    src/internal/service/email
+    src/internal/service/order
+    src/internal/service/payment
+    src/internal/service/product
+    src/internal/service/shortlink
+    src/internal/service/user
+)
