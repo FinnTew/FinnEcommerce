@@ -1,6 +1,7 @@
 go 1.23.2
 
 use (
+	// internal services
     src/internal/service/auth
     src/internal/service/cart
     src/internal/service/checkout
@@ -10,4 +11,10 @@ use (
     src/internal/service/product
     src/internal/service/shortlink
     src/internal/service/user
+
+    // internal gateway
+    src/internal/gateway
+
+    // pkg
+    src/pkg
 )
