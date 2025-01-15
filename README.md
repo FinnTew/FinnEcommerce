@@ -6,6 +6,5 @@
 
 ## TechStack
 
-`Golang`, `Kitex`, `Hertz`, `Consul`, `MySQL`, `Redis`
+`Golang`, `Kitex`, `Hertz`, `Consul`, `MySQL`, `Redis`, `RabbitMQ`, `ElasticSearch`
 
-(其他待补充)
