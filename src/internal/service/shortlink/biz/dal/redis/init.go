@@ -2,9 +2,9 @@ package redis
 
 import (
 	"context"
+	"github.com/redis/go-redis/v9"
 
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/shortlink/conf"
-	
 )
 
 var (
