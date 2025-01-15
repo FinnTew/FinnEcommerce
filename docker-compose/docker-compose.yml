@@ -1,3 +1,67 @@
 version: '3'
 
-#services:
+services:
+  consul:
+    image: hashicorp/consul
+    ports:
+      - 8500:8500
+    networks:
+      - finn-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=ecommerce
+      - MYSQL_USER=finn
+      - MYSQL_PASSWORD=finn
+      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - finn-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - finn-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=finn
+      - RABBITMQ_DEFAULT_PASS=finn
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - finn-network
+
+  elasticsearch:
+    image: elasticsearch:7.17.1
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - finn-network
+
+networks:
+  finn-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
+  rabbitmq_data:
+  es_data:
