@@ -1,62 +1,69 @@
 SOURCE_DIR   := src
 PROTO_DIR    := ../../../api/proto
 SERVICE_DIR  := $(SOURCE_DIR)/internal/service
-
 MODULE_NAME  := github.com/FinnTew/FinnEcommerce
+SERVICES     := auth cart checkout email order payment product shortlink user
 
-GENERATE_SERVICES     := auth cart checkout email order payment product shortlink user
-TIDY_SERVICES     := auth cart checkout email order payment product shortlink user
+.PHONY: all generate modtidy fmt lint clean test build
 
-.PHONY: all
 all: generate
 
-.PHONY: generate
-generate: $(GENERATE_SERVICES)
+generate: $(addprefix generate-,$(SERVICES))
 
-$(GENERATE_SERVICES):
-	@echo "===> Generating service code for [$@]"
-	cd $(SERVICE_DIR)/$@ && \
+generate-%:
+	@echo "===> Generating service code for [$*]"
+	cd $(SERVICE_DIR)/$* && \
 	cwgo server \
 		-I $(PROTO_DIR) \
 		--type RPC \
-		--module $(MODULE_NAME)/src/internal/service/$@ \
-		--service $@ \
-		--idl $(PROTO_DIR)/$@.proto
+		--module $(MODULE_NAME)/src/internal/service/$* \
+		--service $* \
+		--idl $(PROTO_DIR)/$*.proto
 
-.PHONY: modtidy
-modtidy: $(TIDY_SERVICES)
+modtidy: $(addprefix modtidy-,$(SERVICES))
 
-$(TIDY_SERVICES):
-	@echo "===> Run `go mod tidy` for [$@]"
-	cd $(SERVICE_DIR)/$@ && \
+modtidy-%:
+	@echo "===> Running `go mod tidy` for [$*]"
+	cd $(SERVICE_DIR)/$* && \
 	go mod tidy
 
-
-.PHONY: fmt
 fmt:
 	@echo "===> Formatting code..."
-	go fmt ./...
+	cd $(SERVICE_DIR) && \
+	for svc in $(SERVICES); do\
+		echo "Formatting $$svc..."; \
+		cd ./$$svc && go fmt ./...; \
+		cd ../.; \
+	done
 
-.PHONY: lint
 lint:
 	@echo "===> Running linters..."
 	@echo "===> Running golangci-lint..."
-	golangci-lint run ./...
+	cd $(SERVICE_DIR) && \
+	for svc in $(SERVICES); do \
+		echo "Running golangci-lint for $$svc..."; \
+		cd ./$$svc && golangci-lint run; \
+		cd ../.; \
+	done
 
-.PHONY: clean
 clean:
 	@echo "===> Cleaning generated files..."
-	 rm -rf $(SERVICE_DIR)/*/pb/*.go
+	rm -rf $(SERVICE_DIR)/*/pb/*.go
 
-.PHONY: test
 test:
 	@echo "===> Running tests..."
-	go test ./... -v
+	cd $(SERVICE_DIR) && \
+	for svc in $(SERVICES); do \
+		echo "Running tests for $$svc..."; \
+		cd ./$$svc && go test ./...; \
+		cd ../.; \
+	done
 
-.PHONY: build
 build:
 	@echo "===> Building all services..."
+	cd $(SOURCE_DIR)/cmd && \
 	for svc in $(SERVICES); do \
 		echo "Building $$svc..."; \
-		cd $(SOURCE_DIR)/cmd/$$svc && go build -o $$svc main.go; \
+		cd ./$$svc && go build -o $$svc main.go; \
+		cd ../.; \
 	done
