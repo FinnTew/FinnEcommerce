@@ -12,6 +12,9 @@ use (
     src/internal/service/shortlink
     src/internal/service/user
 
+    // internal client
+    src/internal/client
+
     // internal gateway
     src/internal/gateway
 
