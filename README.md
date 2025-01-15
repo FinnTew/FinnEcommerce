@@ -6,4 +6,6 @@
 
 ## TechStack
 
-待完善...
+`Golang`, `Kitex`, `Hertz`, `Consul`, `MySQL`, `Redis`
+
+(其他待补充)
