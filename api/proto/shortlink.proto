@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package shortlink;
+
+option go_package = "/shortlink";
+
+service ShortLinkService {
+  rpc CreateShortLink(CreateShortLinkRequest) returns (CreateShortLinkResponse) {}
+  rpc GetLongLink(GetLongLinkRequest) returns (GetLongLinkResponse) {}
+}
+
+message CreateShortLinkRequest {
+  string long_link = 1;
+  string custom_slug = 2;
+  int32 expiration_seconds = 3;
+}
+
+message CreateShortLinkResponse {
+  string short_link = 1;
+}
+
+message GetLongLinkRequest {
+  string short_link = 1;
+}
+
+message GetLongLinkResponse {
+  string long_link = 1;
+  bool expired = 2;
+}
