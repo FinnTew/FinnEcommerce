@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/checkout/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/checkout/kitex_gen/checkout"
 )
 
 // CheckoutServiceImpl implements the last service interface defined in the IDL.

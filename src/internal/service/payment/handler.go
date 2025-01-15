@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/payment/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/payment/kitex_gen/payment"
 )
 
 // PaymentServiceImpl implements the last service interface defined in the IDL.

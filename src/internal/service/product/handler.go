@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/product/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/product/kitex_gen/product"
 )
 
 // ProductCatalogServiceImpl implements the last service interface defined in the IDL.

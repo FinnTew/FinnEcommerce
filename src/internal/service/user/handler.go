@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/user/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/user/kitex_gen/user"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.

@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth"
 )
 
 // AuthServiceImpl implements the last service interface defined in the IDL.

@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/cart/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/cart/kitex_gen/cart"
 )
 
 // CartServiceImpl implements the last service interface defined in the IDL.

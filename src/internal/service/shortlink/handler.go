@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/shortlink/biz/service"
-	
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/shortlink/kitex_gen/shortlink"
 )
 
 // ShortLinkServiceImpl implements the last service interface defined in the IDL.
