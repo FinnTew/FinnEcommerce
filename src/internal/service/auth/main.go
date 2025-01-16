@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth/authservice"
+	consul "github.com/kitex-contrib/registry-consul"
+	"log"
 	"net"
 	"time"
 
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/conf"
-	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth/authservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -37,6 +39,12 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
+
+	r, err := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		log.Fatal(err)
+	}
+	opts = append(opts, server.WithRegistry(r))
 
 	// klog
 	logger := kitexlogrus.NewLogger()
