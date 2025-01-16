@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/biz/dal"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth/authservice"
 	consul "github.com/kitex-contrib/registry-consul"
 	"log"
@@ -17,6 +18,8 @@ import (
 )
 
 func main() {
+	dal.Init()
+
 	opts := kitexInit()
 
 	svr := authservice.NewServer(new(AuthServiceImpl), opts...)
