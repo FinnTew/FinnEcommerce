@@ -11,15 +11,15 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=ecommerce
-      - MYSQL_USER=finn
-      - MYSQL_PASSWORD=finn
-      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
-    ports:
-      - 3306:3306
+      MYSQL_ROOT_PASSWORD: finn
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: finn
+      MYSQL_PASSWORD: finn
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
     networks:
       - finn-network
 
