@@ -1,16 +1,15 @@
 SOURCE_DIR   := src
 PROTO_DIR    := ../../../api/proto
 SERVICE_DIR  := $(SOURCE_DIR)/internal/service
+CLIENT_DIR   := $(SOURCE_DIR)/internal/client
 MODULE_NAME  := github.com/FinnTew/FinnEcommerce
 SERVICES     := auth cart checkout email order payment product shortlink user
 
-.PHONY: all generate modtidy fmt lint clean test build
+.PHONY: gen_svr gen_client modtidy fmt lint clean test build
 
-all: generate
+gen_svr: $(addprefix gen_svr-,$(SERVICES))
 
-generate: $(addprefix generate-,$(SERVICES))
-
-generate-%:
+gen_svr-%:
 	@echo "===> Generating service code for [$*]"
 	cd $(SERVICE_DIR)/$* && \
 	cwgo server \
@@ -19,6 +18,18 @@ generate-%:
 		--module $(MODULE_NAME)/src/internal/service/$* \
 		--service $* \
 		--idl $(PROTO_DIR)/$*.proto
+
+gen_client: $(addprefix gen_client-,$(SERVICES))
+
+gen_client-%:
+	@echo "===> Generating client code for [$*]"
+	cd $(CLIENT_DIR) && \
+	cwgo client \
+		-I ../../api/proto \
+		--type RPC \
+		--module $(MODULE_NAME)/src/internal/client \
+		--server_name $* \
+		--idl ../../api/proto/$*.proto
 
 modtidy: $(addprefix modtidy-,$(SERVICES))
 
@@ -59,11 +70,11 @@ test:
 		cd ../.; \
 	done
 
-#build:
-#	@echo "===> Building all services..."
-#	cd $(SOURCE_DIR)/cmd && \
-#	for svc in $(SERVICES); do \
-#		echo "Building $$svc..."; \
-#		cd ./$$svc && go build -o $$svc main.go; \
-#		cd ../.; \
-#	done
+build:
+	@echo "===> Building all services..."
+	cd $(SOURCE_DIR)/cmd && \
+	for svc in $(SERVICES); do \
+		echo "Building $$svc..."; \
+		cd./$$svc && sh build.sh; \
+		cd../.; \
+	done
