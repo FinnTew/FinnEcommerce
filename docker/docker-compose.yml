@@ -13,8 +13,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: finn
       MYSQL_DATABASE: ecommerce
-      MYSQL_USER: finn
-      MYSQL_PASSWORD: finn
+      MYSQL_USER: finntew
+      MYSQL_PASSWORD: ft123456
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
