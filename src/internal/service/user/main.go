@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/user/biz/client"
 	"github.com/FinnTew/FinnEcommerce/src/internal/service/user/biz/dal"
 	"net"
 	"time"
@@ -16,6 +17,7 @@ import (
 )
 
 func main() {
+	client.Init()
 	dal.Init()
 
 	opts := kitexInit()
