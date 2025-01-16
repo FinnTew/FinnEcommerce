@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/user/biz/dal"
 	"net"
 	"time"
 
@@ -15,6 +16,8 @@ import (
 )
 
 func main() {
+	dal.Init()
+
 	opts := kitexInit()
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
