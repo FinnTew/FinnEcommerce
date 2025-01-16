@@ -25,7 +25,10 @@ func (s *DeliverTokenByRPCService) Run(req *auth.DeliverTokenReq) (resp *auth.De
 
 	user, err := model.GetUserByID(mysql.DB, s.ctx, uint32(userID))
 	if err != nil {
-		return nil, fmt.Errorf("deliverTokenByRPCService.Run err: %v", err)
+		return &auth.DeliveryResp{
+			AccessToken: "",
+			ExpiresIn:   0,
+		}, fmt.Errorf("deliverTokenByRPCService.Run err: %v", err)
 	}
 	role := user.Role
 
@@ -35,7 +38,10 @@ func (s *DeliverTokenByRPCService) Run(req *auth.DeliverTokenReq) (resp *auth.De
 	)
 	token, err := jwtUtil.GenerateToken(strconv.Itoa(int(userID)), role)
 	if err != nil {
-		return nil, fmt.Errorf("deliverTokenByRPCService.Run err: %v", err)
+		return &auth.DeliveryResp{
+			AccessToken: "",
+			ExpiresIn:   0,
+		}, fmt.Errorf("deliverTokenByRPCService.Run err: %v", err)
 	}
 
 	resp = &auth.DeliveryResp{

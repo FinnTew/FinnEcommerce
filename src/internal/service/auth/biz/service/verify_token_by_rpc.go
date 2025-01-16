@@ -26,7 +26,10 @@ func (s *VerifyTokenByRPCService) Run(req *auth.VerifyTokenReq) (resp *auth.Veri
 	)
 	claims, err := jwtUtil.ParseToken(token)
 	if err != nil {
-		return nil, fmt.Errorf("verifyTokenByRPCService.Run err: %v", err)
+		return &auth.VerifyResp{
+			UserId: "0",
+			Valid:  false,
+		}, fmt.Errorf("verifyTokenByRPCService.Run err: %v", err)
 	}
 
 	resp = &auth.VerifyResp{

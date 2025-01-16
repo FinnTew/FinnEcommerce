@@ -27,7 +27,9 @@ func (s *RenewTokenByRPCService) Run(req *auth.RenewTokenReq) (resp *auth.RenewT
 
 	refreshToken, err := jwtUtil.RefreshToken(token)
 	if err != nil {
-		return nil, fmt.Errorf("renewTokenByRPCService.Run err: %v", err)
+		return &auth.RenewTokenResp{
+			NewToken: "",
+		}, fmt.Errorf("renewTokenByRPCService.Run err: %v", err)
 	}
 
 	resp = &auth.RenewTokenResp{
