@@ -21,7 +21,6 @@ func NewDeliverTokenByRPCService(ctx context.Context) *DeliverTokenByRPCService 
 
 // Run create note info
 func (s *DeliverTokenByRPCService) Run(req *auth.DeliverTokenReq) (resp *auth.DeliveryResp, err error) {
-	// Finish your business logic.
 	userID := req.GetUserId()
 
 	user, err := model.GetUserByID(mysql.DB, s.ctx, uint32(userID))

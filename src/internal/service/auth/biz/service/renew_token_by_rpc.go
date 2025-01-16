@@ -2,7 +2,11 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"github.com/FinnTew/FinnEcommerce/src/internal/pkg/util"
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/conf"
 	auth "github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth"
+	"time"
 )
 
 type RenewTokenByRPCService struct {
@@ -14,7 +18,21 @@ func NewRenewTokenByRPCService(ctx context.Context) *RenewTokenByRPCService {
 
 // Run create note info
 func (s *RenewTokenByRPCService) Run(req *auth.RenewTokenReq) (resp *auth.RenewTokenResp, err error) {
-	// Finish your business logic.
+	token := req.GetToken()
+
+	jwtUtil := util.NewJWTUtil(
+		conf.GetConf().Jwt.Secret,
+		time.Duration(conf.GetConf().Jwt.Expire)*time.Second,
+	)
+
+	refreshToken, err := jwtUtil.RefreshToken(token)
+	if err != nil {
+		return nil, fmt.Errorf("renewTokenByRPCService.Run err: %v", err)
+	}
+
+	resp = &auth.RenewTokenResp{
+		NewToken: refreshToken,
+	}
 
 	return
 }

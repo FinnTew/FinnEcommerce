@@ -2,7 +2,11 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"github.com/FinnTew/FinnEcommerce/src/internal/pkg/util"
+	"github.com/FinnTew/FinnEcommerce/src/internal/service/auth/conf"
 	auth "github.com/FinnTew/FinnEcommerce/src/internal/service/auth/kitex_gen/auth"
+	"time"
 )
 
 type VerifyTokenByRPCService struct {
@@ -14,7 +18,22 @@ func NewVerifyTokenByRPCService(ctx context.Context) *VerifyTokenByRPCService {
 
 // Run create note info
 func (s *VerifyTokenByRPCService) Run(req *auth.VerifyTokenReq) (resp *auth.VerifyResp, err error) {
-	// Finish your business logic.
+	token := req.GetToken()
+
+	jwtUtil := util.NewJWTUtil(
+		conf.GetConf().Jwt.Secret,
+		time.Duration(conf.GetConf().Jwt.Expire)*time.Second,
+	)
+	claims, err := jwtUtil.ParseToken(token)
+	if err != nil {
+		return nil, fmt.Errorf("verifyTokenByRPCService.Run err: %v", err)
+	}
+
+	resp = &auth.VerifyResp{
+		UserId: claims.UserID,
+		Valid:  true,
+	}
 
 	return
+
 }
