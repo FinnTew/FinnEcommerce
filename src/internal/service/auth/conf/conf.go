@@ -23,6 +23,7 @@ type Config struct {
 	MySQL    MySQL    `yaml:"mysql"`
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
+	Jwt      Jwt      `yaml:"jwt"`
 }
 
 type MySQL struct {
@@ -50,6 +51,11 @@ type Registry struct {
 	RegistryAddress []string `yaml:"registry_address"`
 	Username        string   `yaml:"username"`
 	Password        string   `yaml:"password"`
+}
+
+type Jwt struct {
+	Secret string `yaml:"secret"`
+	Expire int    `yaml:"expire"`
 }
 
 // GetConf gets configuration instance
