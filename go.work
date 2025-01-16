@@ -23,4 +23,7 @@ use (
 
     // pkg
     src/pkg
+
+	// cmd
+	src/cmd
 )
