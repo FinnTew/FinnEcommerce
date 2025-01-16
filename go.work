@@ -18,6 +18,9 @@ use (
     // internal gateway
     src/internal/gateway
 
+    // internal pkg
+    src/internal/pkg
+
     // pkg
     src/pkg
 )
