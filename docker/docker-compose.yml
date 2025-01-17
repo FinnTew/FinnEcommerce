@@ -2,6 +2,7 @@ version: '3'
 
 services:
   consul:
+    container_name: consul-finn
     image: hashicorp/consul
     ports:
       - 8500:8500
@@ -10,6 +11,7 @@ services:
 
   mysql:
     image: mysql:8.0
+    container_name: mysql-finn
     environment:
       MYSQL_ROOT_PASSWORD: finn
       MYSQL_DATABASE: ecommerce
@@ -24,6 +26,7 @@ services:
       - finn-network
 
   redis:
+    container_name: redis-finn
     image: redis:latest
     ports:
       - 6379:6379
@@ -32,20 +35,23 @@ services:
     networks:
       - finn-network
 
+
   rabbitmq:
+    container_name: rabbitmq-finn
     image: rabbitmq:3-management
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
     environment:
-      - RABBITMQ_DEFAULT_USER=finn
-      - RABBITMQ_DEFAULT_PASS=finn
+      RABBITMQ_DEFAULT_USER: finn
+      RABBITMQ_DEFAULT_PASS: finn
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - finn-network
 
   elasticsearch:
+    container_name: elasticsearch-finn
     image: elasticsearch:7.17.1
     ports:
       - 9200:9200
