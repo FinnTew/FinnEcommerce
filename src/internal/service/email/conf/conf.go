@@ -21,12 +21,17 @@ type Config struct {
 	Env      string
 	Kitex    Kitex    `yaml:"kitex"`
 	MySQL    MySQL    `yaml:"mysql"`
+	RabbitMQ RabbitMQ `yaml:"rabbitmq"`
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
 }
 
 type MySQL struct {
 	DSN string `yaml:"dsn"`
+}
+
+type RabbitMQ struct {
+	URL string `yaml:"url"`
 }
 
 type Redis struct {
