@@ -8,6 +8,46 @@
 
 `Golang`, `Kitex`, `Hertz`, `Consul`, `MySQL`, `Redis`, `RabbitMQ`, `ElasticSearch`
 
+## DirTree
+
+```text
+.
+├── docker
+│   ├── docker-compose.yml
+│   └── init.sql
+├── go.work // workspace
+├── Makefile
+├── README.md
+└── src
+    ├── api
+    │   └── proto
+    │       ├── auth.proto
+    │       ├── cart.proto
+    │       ├── checkout.proto
+    │       ├── email.proto
+    │       ├── order.proto
+    │       ├── payment.proto
+    │       ├── product.proto
+    │       ├── shortlink.proto
+    │       └── user.proto
+    ├── cmd
+    ├── internal
+    │   ├── client
+    │   ├── gateway
+    │   ├── pkg // 内部工具
+    │   └── service
+    │       ├── auth
+    │       ├── cart
+    │       ├── checkout
+    │       ├── email
+    │       ├── order
+    │       ├── payment
+    │       ├── product
+    │       ├── shortlink
+    │       └── user
+    └── pkg // 外部工具
+```
+
 ## Start
 
 1. 环境准备
