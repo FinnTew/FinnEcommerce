@@ -58,7 +58,7 @@
      
    - 下载 `RabbitMQ` 延时队列插件
      ```bash 
-     curl -o ~/rabbitmq/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/v3.13.0/rabbitmq_delayed_message_exchange-3.13.0.ez
+     mkdir -p ~/rabbitmq/plugins && wget -P ~/rabbitmq/plugins https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/v3.13.0/rabbitmq_delayed_message_exchange-3.13.0.ez
      ```
      
    - Copy 到容器插件目录下
